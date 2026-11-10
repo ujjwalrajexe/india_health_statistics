@@ -1,0 +1,22 @@
+# The main pipeline for india_health_statistics
+
+resources:
+  pipelines:
+    india_health_statistics_etl:
+      name: india_health_statistics_etl
+      catalog: ${var.catalog}
+      schema: ${var.schema}
+      serverless: true
+      root_path: "../src/india_health_statistics_etl"
+
+      libraries:
+        - glob:
+            include: ../src/india_health_statistics_etl/transformations/**
+
+      environment:
+        dependencies:
+          # We include every dependency defined by pyproject.toml by defining an editable environment
+          # that points to the folder where pyproject.toml is deployed.
+          - --editable ${workspace.file_path}
+      configuration:
+        source: /Volumes/india_health_lakehouse/bronze/landing
