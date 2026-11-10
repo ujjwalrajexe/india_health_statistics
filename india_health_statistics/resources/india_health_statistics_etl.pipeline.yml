@@ -11,7 +11,13 @@ resources:
 
       libraries:
         - glob:
-            include: ../src/india_health_statistics_etl/transformations/**
+            include: ../src/india_health_statistics_etl/transformations/common.py
+        - glob:
+            include: ../src/india_health_statistics_etl/transformations/bronze_*.py
+        - glob:
+            include: ../src/india_health_statistics_etl/transformations/silver.py
+        - glob:
+            include: ../src/india_health_statistics_etl/transformations/gold.py
 
       environment:
         dependencies:

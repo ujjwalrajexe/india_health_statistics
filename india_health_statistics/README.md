@@ -2,7 +2,7 @@
 
 Lakeflow Spark Declarative Pipeline that turns the NFHS-5 district fact sheet and the national hospital directory into district-level health KPIs, a need score, and a service-gap classification.
 
-Source lives in `src/india_health_statistics_etl/transformations/pipeline.py`. Landing files are read from the `source` pipeline configuration (default `/Volumes/india_health_lakehouse/bronze/landing`):
+Source lives in `src/india_health_statistics_etl/transformations/`. `bronze_hospitals.py` loads the hospital directory. `bronze_nfhs.py` reads the NFHS file once, and each `bronze_nfhs_*.py` file publishes one theme table. `silver.py` cleans and matches both sources. `gold.py` builds the KPI, score, supply, gap, and state tables. Column lists and name-matching helpers are in `common.py`. Landing files are read from the `source` pipeline configuration (default `/Volumes/india_health_lakehouse/bronze/landing`):
 
 - `<source>/hospitals_directory/*.csv`
 - `<source>/health_statistic/*.csv`
@@ -147,47 +147,3 @@ One row per state, rolled up from the district gold tables. Averages are unweigh
 | `n_critical_gap`, `n_pressure`, `n_monitor`, `n_adequate` | District counts in each quadrant. |
 | `pct_districts_critical` | `n_critical_gap / n_districts × 100`, rounded to 2 decimals. |
 
-## Getting started
-
-Choose how you want to work on this project:
-
-(a) Directly in your Databricks workspace, see
-    https://docs.databricks.com/dev-tools/bundles/workspace.
-
-(b) Locally with an IDE like Cursor or VS Code, see
-    https://docs.databricks.com/dev-tools/vscode-ext.html.
-
-(c) With command line tools, see https://docs.databricks.com/dev-tools/cli/databricks-cli.html
-
-### Using this project with the CLI
-
-1. Authenticate to your Databricks workspace, if you have not done so already:
-    ```
-    $ databricks configure
-    ```
-
-2. To deploy a development copy of this project, type:
-    ```
-    $ databricks bundle deploy --target dev
-    ```
-    (Note that "dev" is the default target, so the `--target` parameter
-    is optional here.)
-
-    This deploys a pipeline called
-    `[dev yourname] india_health_statistics_etl` to your workspace.
-    You can find that resource by opening your workspace and clicking on **Jobs & Pipelines**.
-
-3. To deploy a production copy, type:
-   ```
-   $ databricks bundle deploy --target prod
-   ```
-   The job in `resources/sample_job.job.yml` refreshes the pipeline once a day.
-   The schedule is paused when deploying in development mode (see
-   https://docs.databricks.com/dev-tools/bundles/deployment-modes.html).
-
-4. To run a job or pipeline, use the "run" command:
-   ```
-   $ databricks bundle run
-   ```
-
-Catalog is `india_health_lakehouse`. The dev schema is the current user; prod uses schema `prod`. Tables are created in the `bronze`, `silver`, and `gold` schemas from the two-part names in the pipeline.
