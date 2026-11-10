@@ -1,9 +1,4 @@
 """Bronze hospital directory, loaded by Auto Loader. All columns stay STRING."""
-import sys
-from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-
 from pyspark.sql import functions as F
 
 from common import HOSPITAL_SRC_MAP, audit, autoloader, dp, hospital_path, snake

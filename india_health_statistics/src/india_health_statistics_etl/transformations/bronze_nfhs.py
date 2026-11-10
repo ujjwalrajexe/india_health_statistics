@@ -2,11 +2,6 @@
 
 Theme tables in the other bronze_nfhs_*.py files stream from the nfhs_raw view.
 """
-import sys
-from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-
 from pyspark.sql import functions as F
 
 from common import NFHS_SOURCE_ORDER, audit, autoloader, dp, nfhs_path

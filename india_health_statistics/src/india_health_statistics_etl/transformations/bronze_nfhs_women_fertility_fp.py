@@ -1,9 +1,4 @@
 """Bronze NFHS-5 women's literacy, fertility, and family planning."""
-import sys
-from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-
 from common import TABLE_THEME, dp, nfhs_theme
 
 _TABLE = "nfhs_women_fertility_fp"

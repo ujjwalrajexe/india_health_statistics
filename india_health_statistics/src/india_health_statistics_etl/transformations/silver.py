@@ -3,11 +3,7 @@
 District matching, hospital cleaning, the indicator fact, and the data-quality
 gate all live here because each one uses both sources.
 """
-import sys
 from functools import reduce
-from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from pyspark.sql import functions as F
 from pyspark.sql.window import Window

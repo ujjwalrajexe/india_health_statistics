@@ -1,9 +1,4 @@
 """Bronze NFHS-5 child immunisation."""
-import sys
-from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-
 from common import TABLE_THEME, dp, nfhs_theme
 
 _TABLE = "nfhs_child_immunization"

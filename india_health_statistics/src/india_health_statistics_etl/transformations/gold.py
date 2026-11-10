@@ -1,9 +1,5 @@
 """Gold KPIs, need scores, hospital supply, service-gap quadrants, and the state rollup."""
-import sys
 from functools import reduce
-from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from pyspark.sql import functions as F
 from pyspark.sql.window import Window
